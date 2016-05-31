@@ -3,5 +3,5 @@ Git is free software distributed under the GPL.
 
 I’m learning Git!
 Git tracks changes of files.
-tt
-tt
+My stupid boss still prefers SVN.
+
