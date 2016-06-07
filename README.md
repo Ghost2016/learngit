@@ -3,5 +3,5 @@ Nothing
 
 Creating a new branch is quick and simple.
 
-merge for test.
+merge for test twice.
 
