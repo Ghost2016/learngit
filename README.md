@@ -5,4 +5,4 @@ Creating a new branch is quick and simple.
 
 merge for test twice.
 
-This is free software.
+This is a free software.
