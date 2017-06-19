@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+        }
+        #img_container{
+            width: 40rem;
+            height: 40rem;
+            border: none;
+            margin: auto;
+            overflow: scroll;
+        }
+        #img_container:-webkit-scrollbar{width:0;height: 0}
+
+    </style>
+</head>
+<body>
+<div id="img_container">
+    <img src="haian_fengjing-004.jpg" id="image">
+</div>
+<script>
+    var isAndroid = function () {
+        var u = navigator.userAgent;
+        return u.indexOf('Android') > -1;
+    }();
+    var img_container = document.getElementById("img_container");
+    var image = document.getElementById("image");
+
+    var touchIdentifiers = [];
+    var touchMoveObjects = [];
+    image.addEventListener("load", function (event) {
+        calculate(image,img_container);
+        center(image,img_container);
+    });
+    image.addEventListener("error", function (event) {
+
+    });
+    image.addEventListener("touchstart", function (event) {
+        handleTouchStart(this,event);
+    });
+    image.addEventListener("touchmove", function (event) {
+        handleTouchMove(this,event);
+    });
+    image.addEventListener("touchend", function (event) {
+        handleTouchEnd(this,event);
+    });
+    image.addEventListener("touchcancel", function (event) {
+        handleTouchCancel(this,event);
+    });
+    function handleTouchStart(e,event){
+        var touches = event.changedTouches;
+        for(var i= 0,len=touches.length;i<len;i++){
+            var t = touches[i];
+            touchIdentifiers.push(t.identifier);
+            touchMoveObjects.push({moveX: t.pageX,moveY: t.pageY});
+        }
+    }
+    function handleTouchMove(e,event){
+        var touches = event.targetTouches;
+        switch (touches.length){
+            case 1:
+                var currentTouch = touches[0];
+                var touchMoveObj = touchMoveObjects[touchIdentifiers[0]];
+                var deltaX = currentTouch.pageX-touchMoveObj.moveX;
+                var deltaY = currentTouch.pageY-touchMoveObj.moveY;
+                touchMoveObj.moveX = currentTouch.pageX;
+                touchMoveObj.moveY = currentTouch.pageY;
+                    console.log("x="+deltaX+" ; y="+deltaY);
+                break;
+            case 2:
+                break;
+        }
+        if(isAndroid){
+            event.preventDefault();
+        }
+    }
+    function handleTouchEnd(e,event){
+        var changedTouches = event.changedTouches;
+        for(var i= 0,len=changedTouches.length;i<len;i++){
+            var index = touchIdentifiers.indexOf(changedTouches[i].identifier);
+            touchIdentifiers.splice(index,1);
+            touchMoveObjects.splice(index,1);
+        }
+    }
+    function handleTouchCancel(e,event){
+        touchIdentifiers = [];
+        touchMoveObjects = [];
+    }
+    function center(img,container){
+        var height = parseInt(getComputedStyle(img).height);
+        img.style.marginTop = (parseInt(getComputedStyle(container).height) - height)/2+"px";
+        var width = parseInt(getComputedStyle(img).width);
+        img.style.marginLeft = (parseInt(getComputedStyle(container).width) - width)/2+"px";
+    }
+    function calculate(img,img_container){
+        var height = parseInt(getComputedStyle(img).height);
+        var width = parseInt(getComputedStyle(img).width);
+        var imgContainerWidth = parseInt(getComputedStyle(img_container).width);
+        var imgContainerHeight = parseInt(getComputedStyle(img_container).height);
+        imgBoxHeight = imgContainerHeight;
+        imgBoxWidth = imgContainerWidth;
+        if(height>imgContainerHeight||width>imgContainerWidth){
+            var scale1 = imgContainerHeight/height;
+            var scale2 = imgContainerWidth/width;
+            if(scale1>scale2){
+                img.style.width = parseInt(width)*scale2+"px";
+            }else{
+                img.style.height = parseInt(height)*scale1+"px";
+            }
+        }
+    }
+</script>
+</body>
+</html>
