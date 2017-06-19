@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<link href="css/slider.1.1.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<style>
+			body {}
+		</style>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<title>指标分类</title>
+
+		<link rel="stylesheet" href="css/timePop.css" />
+		<link rel="stylesheet" href="css/gDialog.1.0.css" />
+		<script src="js/timePop.js"></script>
+		<script src="js/slider.js"></script>
+		<script src="js/gDialog.1.1.js"></script>
+	</head>
+
+	<body id='body' style="height: 800px;width: 100px;">
+		<!-- <a href="html/nav.html" style ="font-size:30px">主页</a> -->
+		<a href="html/nav.html" style="font-size:30px">主页</a>
+		<h2>hahahahahahahahah</h2>
+		<!-- <a href="html/highchart-pie.html">主页</a> -->
+		<!--<div id="banner">
+			<div class="banner-box" id="banner-box">
+				<ul class="banner-show">
+
+				</ul>
+				<div class="banner-tab">
+					<p>1111</p>
+					<ul>
+					</ul>
+				</div>
+			</div>
+		</div>-->
+		<input type="text" style="height: 40px;width: 100%;" />
+	</body>
+	<script src="js/jquery.js"></script>
+	<!--<script type="text/javascript" src='js/ChineseCities.1.0.js'>-->
+	<script type = 'text/javascript' src="js/ClassicCalendar.1.0.js"></script>
+	<script src="js/zepto.min.js"></script>
+	<script>
+	//	'use strict';
+		function* myGenerator(max){
+			var
+					t,
+					a = 0,
+					b = 1,
+					n = 1;
+			while (n <= max) {
+				yield a;
+				t = a + b;
+				a = b;
+				b = t;
+				n ++;
+			}
+			return a;
+		}
+		for(var i of myGenerator(5)){
+			console.log(i);
+		}
+		var a = function(x){
+			return x * x;
+		}
+
+		//		$(document).ready(function() {
+		//		var banner = new Banner('body',1);
+		//			var aa='0123456789';
+		//			var str = aa.substr(0,3);
+		//			aa = aa.replace(str,'haha');
+		window.onload = function() {
+			var gd = new gDialog().show();
+//			var child = [];
+//			Chinese_Cities.every(function(obj, i, arr) {
+//				if(obj.text == '成都市') {
+//					child = obj.children;
+//					return false;
+//				}
+//				return true;
+//			});
+//
+//			document.getElementsByTagName('input')[0].addEventListener('input', function() {
+//				//	alert(this.value);
+//				var value = this.value;
+//				if(value != null && value != "") {
+//					var cities = doSearching(value, true, child);
+//					var str = '';
+//					cities.every(function(obj, i, arr) {
+//						str += obj.text + ' ';
+//						return true;
+//					})
+//					console.log(str);
+//				}
+//			});
+			//			function formatToThousands (num) {
+			//			    return (num.toFixed(2) + '').replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
+			//			}
+			//			var num = 1234567890.3233333335;
+			//		var listMap = categorize();
+			//		var keys = listMap.allKeys();
+			//		keys.every(function(obj,i,arr){
+			//			var cities = listMap.get(obj);
+			//			var str ='';
+			//			cities.every(function(obj1,i1,arr1){
+			//				str+=obj1.text+' ';
+			//				return true;
+			//			})
+			//			console.log(obj);
+			//			console.log(str);
+			//			return true;
+			//		})
+//			var grids = ClassicCalendar.dateGrids(2016,7);
+//			var str = '';
+//			grids.every(function(obj, i, arr) {
+//						str += '('+obj.monthFlag +') '+ obj.getDate() + ' ';
+//						return true;
+//					})
+//			console.log(str);
+		};
+//		function get_primes(arr){
+//			return arr.filter(function(x){
+//				var result = true;
+//				for(let i = 2;i< Math.ceil((x-1)/2);i++){
+//					if(x%i === 0){
+//						result = false;
+//						break;
+//					}else{
+//						continue;
+//					}
+//				}
+//				return result;
+//			});
+//		}
+	</script>
+</html>
