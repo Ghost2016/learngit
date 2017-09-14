@@ -457,7 +457,7 @@
         for (i = 0; i < time1.length; i++) {
             addTag(time1[i], 'in');
         }
-        addDetail();
+        requestForDetail();
     });
     //对返回数据进行转换
     function parseIfNeeded(arg) {
@@ -490,9 +490,23 @@
     }
     //添加数据
     function addDetail(data) {
-        $('#in>table').html('');
-        $('#out>table').html('');
-        data = testJSON.json;
+        $('#in>table').html('<tr style="height: 65px;">\
+                            <th>航班</th>\
+                            <th>始发</th>\
+                            <th>计划到达</th>\
+                            <th>实际到达</th>\
+                            <th>航站楼</th>\
+                            <th>状态</th>\
+                        </tr>');
+        $('#out>table').html('<tr style="height: 65px;">\
+                            <th>航班</th>\
+                            <th>始发</th>\
+                            <th>计划到达</th>\
+                            <th>实际到达</th>\
+                            <th>航站楼</th>\
+                            <th>状态</th>\
+                        </tr>');
+        // data = testJSON.json;
         _html = '';
         data.forEach(function (air) {
             switch (air.company) {
