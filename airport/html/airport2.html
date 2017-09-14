@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="always">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-touch-fullscreen" content="YES">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>airport</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <script type="text/javascript" src="../js/zepto.min.js"></script>
+    <style>
+        header {
+            border-bottom: 0px;
+            height: 50px;
+            line-height: 50px;
+            color: #fff;
+            font-size: 24px;
+        }
+
+        table {
+            background: #f0f0f0;
+            border: 0;
+        }
+
+        td {
+            padding: 26px 0px;
+            border-bottom: 0.5px grey solid;
+            font-size: 14px;
+        }
+
+        th {
+            color: #333;
+            font-size: 14px;
+        }
+
+        .plane_detail {
+            background: white;
+        }
+
+        .tab_menu .selected div {
+            /*background-color: #aaa;*/
+            border-bottom: #fff 3px solid;
+            /*color:#fff;*/
+        }
+
+        .tab_menu .selected div {
+            text-align: center;
+            width: 75%;
+            margin: auto auto;
+            height: 50px;
+        }
+
+        .tab_menu ul {
+            height: 53px;
+        }
+
+        .tab_menu ul li {
+            float: left;
+            list-style: none;
+            font-size: 0;
+            width: 50%;
+            height: 100%;
+            color: #000;
+            border-bottom: none;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .tab_menu ul li div a {
+            text-decoration: none;
+            font-size: 17px;
+            color: #fff;
+            /*width:80px;*/
+        }
+
+        .tab_box {
+            width: 170px;
+            height: 150px;
+            /*border: solid 1px gray;*/
+        }
+
+        .tab_box .hide {
+            display: none;
+        }
+
+        .plane_detail {}
+
+        .plane_num {}
+
+        .plane_num>a {
+            background-image: url('../images/setting-clicked.png');
+            background-size: contain;
+            background-origin: content-box;
+            background-repeat: no-repeat;
+        }
+
+        .plane_num>a>span {
+            margin-left: 18px;
+        }
+
+        .plane_status {}
+
+        .plane_enter>a {
+            background-image: url('../images/arrow-into.png');
+            background-size: contain;
+            background-origin: content-box;
+            background-repeat: no-repeat;
+            background-position: bottom;
+        }
+
+        .plane_enter>a>span {
+            margin-right: 18px;
+        }
+
+        .status_normal {
+            color: #67c03b;
+        }
+
+        .status_delay {
+            color: #ff4c53;
+        }
+
+        .time-flag {
+            -webkit-text-size-adjust: none;
+            font-size: 12px;
+            background-color: #3eb2dc;
+            width: 30px;
+            height: 18px;
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+        }
+
+        .time-flag:before {
+            content: "";
+            display: block;
+            border-color: #3eb2dc transparent transparent #3eb2dc;
+            /*border-top-color: #3eb2dc;*/
+            /*border-left-color: blue;*/
+            border-width: 3px;
+            border-style: solid;
+            width: 0;
+            height: 0;
+            position: absolute;
+            top: 15px;
+            left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header style="background: #3eb2dc;">
+        <div>
+            <a id="back" title="返回" style="background-image: url('../images/back-white.png')"></a>
+        </div>
+        <div style="font-size: 24px">航班信息</div>
+        <div>
+            <div></div>
+        </div>
+    </header>
+    <section style="display: -webkit-box;-webkit-box-orient:vertical;padding-bottom: 0px;">
+
+        <div id="tab">
+            <div class="tab_menu" style="background: #3eb2dc;">
+                <ul>
+                    <li class="selected">
+                        <div><a href="#">进港</a></div>
+                    </li>
+                    <li>
+                        <div><a href="#">出港</a></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab_box" style="width: 100%;">
+                <div id="in">
+                    <table style="width: 100%; text-align: center">
+                        <tr style="height: 65px;">
+                            <th>航班</th>
+                            <th>始发</th>
+                            <th>计划到达</th>
+                            <th>实际到达</th>
+                            <th>航站楼</th>
+                            <th>状态</th>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/a.png')"><span>3U8135</span></a></td>
+                            <td> 郑州</td>
+                            <td> 16:30</td>
+                            <td>
+                                <div class="actual_time">15:54</div>
+                            </td>
+                            <td> ---</td>
+                            <td class="status_normal"><span>到达</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/b.png')"><span>3U8135</span></a></td>
+                            <td> 郑州</td>
+                            <td> 16:30</td>
+                            <td> 15:54</td>
+                            <td> ---</td>
+                            <td class="status_delay"><span>推迟</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/c.png')"><span>3U8135</span></a></td>
+                            <td> 郑州</td>
+                            <td> 16:30</td>
+                            <td> 15:54</td>
+                            <td> ---</td>
+                            <td class="status_normal"><span>到达</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/a.png')"><span>3U8135</span></a></td>
+                            <td> 郑州</td>
+                            <td> 16:30</td>
+                            <td>
+                                <div class="actual_time">15:54</div>
+                            </td>
+                            <td> ---</td>
+                            <td class="status_normal"><span>到达</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/a.png')"><span>3U8135</span></a></td>
+                            <td> 郑州</td>
+                            <td> 16:30</td>
+                            <td>
+                                <div class="actual_time">15:54</div>
+                            </td>
+                            <td> ---</td>
+                            <td class="status_normal"><span>到达</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/a.png')"><span>3U8135</span></a></td>
+                            <td> 郑州</td>
+                            <td> 16:30</td>
+                            <td>
+                                <div class="actual_time">15:54</div>
+                            </td>
+                            <td> ---</td>
+                            <td class="status_normal"><span>到达</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/d.png')"><span>3U8135</span></a></td>
+                            <td> 呼和浩特</td>
+                            <td> 16:30</td>
+                            <td> 15:54</td>
+                            <td> ---</td>
+                            <td class="status_normal"><span>到达</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                    </table>
+                    <!--<div class="time-flag">预计</div>-->
+                </div>
+                <div class="hide" id="out">
+                    <table style="width: 100%; text-align: center">
+                        <tr style="height: 65px;">
+                            <th>航班</th>
+                            <th>始发</th>
+                            <th>计划到达</th>
+                            <th>实际到达</th>
+                            <th>航站楼</th>
+                            <th>状态</th>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/a.png')"><span>3U8135</span></a></td>
+                            <td> 郑州</td>
+                            <td> 16:30</td>
+                            <td>
+                                <div class="actual_time">15:54</div>
+                            </td>
+                            <td> ---</td>
+                            <td class="status_normal"><span>到达</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/a.png')"><span>3U8135</span></a></td>
+                            <td> 郑州</td>
+                            <td> 16:30</td>
+                            <td>
+                                <div class="actual_time">15:54</div>
+                            </td>
+                            <td> ---</td>
+                            <td class="status_normal"><span>到达</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/a.png')"><span>3U8135</span></a></td>
+                            <td> 郑州</td>
+                            <td> 16:30</td>
+                            <td>
+                                <div class="actual_time">15:54</div>
+                            </td>
+                            <td> ---</td>
+                            <td class="status_normal"><span>到达</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/d.png')"><span>3U8135</span></a></td>
+                            <td> 呼和浩特</td>
+                            <td> 16:30</td>
+                            <td> 15:54</td>
+                            <td> ---</td>
+                            <td class="status_normal"><span>到达</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/d.png')"><span>3U8135</span></a></td>
+                            <td> 呼和浩特</td>
+                            <td> 16:30</td>
+                            <td> 15:54</td>
+                            <td> ---</td>
+                            <td class="status_normal"><span>到达</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/d.png')"><span>3U8135</span></a></td>
+                            <td> 呼和浩特</td>
+                            <td> 16:30</td>
+                            <td> 15:54</td>
+                            <td> ---</td>
+                            <td class="status_normal"><span>到达</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/d.png')"><span>3U8135</span></a></td>
+                            <td> 呼和浩特</td>
+                            <td> 16:30</td>
+                            <td> 15:54</td>
+                            <td> ---</td>
+                            <td class="status_normal"><span>到达</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/d.png')"><span>3U8135</span></a></td>
+                            <td> 呼和浩特</td>
+                            <td> 16:30</td>
+                            <td> 15:54</td>
+                            <td> ---</td>
+                            <td class="status_delay"><span>延误</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/a.png')"><span>3U8135</span></a></td>
+                            <td> 郑州</td>
+                            <td> 16:30</td>
+                            <td>
+                                <div class="actual_time">15:54</div>
+                            </td>
+                            <td> ---</td>
+                            <td class="status_normal"><span>到达</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/a.png')"><span>3U8135</span></a></td>
+                            <td> 郑州</td>
+                            <td> 16:30</td>
+                            <td>
+                                <div class="actual_time">15:54</div>
+                            </td>
+                            <td> ---</td>
+                            <td class="status_normal"><span>到达</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/a.png')"><span>3U8135</span></a></td>
+                            <td> 郑州</td>
+                            <td> 16:30</td>
+                            <td>
+                                <div class="actual_time">15:54</div>
+                            </td>
+                            <td> ---</td>
+                            <td class="status_normal"><span>到达</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                        <tr class="plane_detail">
+                            <td class="plane_num"><a style="background-image: url('../images/d.png')"><span>3U8135</span></a></td>
+                            <td> 呼和浩特</td>
+                            <td> 16:30</td>
+                            <td> 15:54</td>
+                            <td> ---</td>
+                            <td class="status_normal"><span>到达</span></td>
+                            <td class="plane_enter"><a><span></span></a></td>
+                        </tr>
+                    </table>
+                </div>
+                <!--<div class="hide">娱乐</div>-->
+
+            </div>
+        </div>
+    </section>
+
+
+</body>
+<script>
+    $(function () {
+        var aLi = $(".tab_menu ul li");
+        var addTags = false;
+        aLi.click(function () {
+            $(this).addClass('selected').siblings().removeClass('selected');
+            var index = $(this).index();
+            $('.tab_box>div').eq(index).css('display', 'block').siblings().css('display', 'none');
+            //            $('.tab_box>div').eq(index).show().siblings().hide();
+            if ((index === 1) && (!addTags)) {
+                var time2 = $('#out .actual_time');
+                for (i = 0; i < time2.length; i++) {
+                    addTag(time2[i], 'out');
+                }
+                addTags = true;
+            }
+        });
+        function addTag(dom, container) {
+            var $dom, hpos, vpos;
+            $dom = $(dom);
+            hpos = $dom.offset().left + ($dom.offset().width) / 2 + 10;
+            vpos = $dom.offset().top - 20;
+            $('#' + container).append('<div class="time-flag" style="left:' + hpos + 'px;top:' + vpos + 'px">预计</div>')
+        }
+        var time1 = $('#in .actual_time'), i = 0;
+        for (i = 0; i < time1.length; i++) {
+            addTag(time1[i], 'in');
+        }
+
+        //        var hpos = time.offset().left + (time.offset().width) / 2 + 10;
+        //        var vpos = time.offset().top - 20;
+        //        $('.time-flag').css('left', hpos).css('top', vpos);
+    });
+
+</script>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="always">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-touch-fullscreen" content="YES">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>airport</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/about.css">
+    <style>
+        .div_two_icon {
+            margin: 0 0;
+            padding: 15px 0;
+        }
+
+        section {
+            padding: 0px;
+        }
+
+        .icon_logo_tc {
+            width: 100%;
+            height: 100%;
+        }
+        .icon_logo_div{
+            width: 200px;
+            height: 200px;
+            margin: auto;
+        }
+
+        .up_part {
+            font-size: 18px;
+        }
+
+        .div-line {
+            height: 0px;
+            width: 85%;
+            border-bottom: 1px solid #cccccc;
+            margin: auto;
+        }
+
+        .tc_version {
+            margin: 0 0 15px 0;
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript" src="../js/zepto.min.js"></script>
+    <script type="text/javascript" src="../js/topmobi.native.base.js"></script>
+    <script type="text/javascript" src="../js/topmobi.native.common.js"></script>
+</head>
+
+<body>
+    <!-- <header style="background: #3eb2dc;display: none">
+    <div>
+        <a id="back" title="返回" style="background-image: url('../images/back-white.png')"></a>
+    </div>
+    <div style="font-size: 24px;color: white;">关于</div>
+    <div>
+        <div></div>
+    </div>
+</header> -->
+    <section style="display: -webkit-box;-webkit-box-orient:vertical;padding-bottom: 0px;">
+        <div id="up_part" class="up_part" style="min-height:inherit;">
+
+            <div class="div_two_icon">
+                <div class="tc_version"><span>安卓版</span></div>
+                <div class="icon_logo_div"><img src="../images/ewm_android.png" class="icon_logo_tc"></div>
+                <!-- <div id="tc_version"><span>NJJC_Build_1.0.20</span></div> -->
+            </div>
+            <div class='div-line'></div>
+            <div class="div_two_icon">
+                <div class="tc_version"><span>苹果版</span></div>
+                <div class="icon_logo_div"><img src="../images/ewm_ios.png" class="icon_logo_tc"></div>
+                <!-- <div id="tc_version"><span>NJJC_Build_1.0.20</span></div> -->
+            </div>
+            <div class="div_contact_container">
+                <a class="div_contact" href="javascript:topmobi.native.common.makePhoneCall('08166357229');">
+                    <div class="item_left"><img src="../images/about-phone.png" class="img_contact"><span class="contact_span">设备动力部</span></div>
+                    <div class="item_right"><span class="number_span">0816-6357229</span><img src="../images/about-into.png" class="img_arrow_right"></div>
+                </a>
+                <!-- <a class="div_contact" target="_blank" href="#">
+                <div class="item_left"><img src="../images/about-weixin.png" alt="微信公众号" title="微信公众号"
+                                            class="img_contact"><span class="contact_span">微信公众号</span></div>
+                <div class="item_right"><span class="number_span">绵阳南郊机场</span><img src="../images/about-into.png"
+                                                                                    class="img_arrow_right"></div>
+            </a>-->
+            </div>
+        </div>
+        <footer class="footer" id="footer" style="margin-top: 10px;">
+            <p class="company">长虹软件与服务中心  技术支持</p>
+            <p class="copyright">Copyright@2017-2020 CH Corp.All.Rights Reserved</p>
+        </footer>
+    </section>
+</body>
+
+<script>
+    $(function () {
+        var _top = $('.div_contact_container').offset().top,
+            _height = window.innerHeight;
+        doc = window.document;
+        if ((_height - _top) > 128) {
+            doc.getElementById('footer').style.marginTop = -69 + 'px';
+            doc.getElementById('up_part').style.minHeight = '100%';
+        }
+        $('#back').on('tap', function () {
+            window.close();
+        });
+    });
+
+    var obj = {
+        success: function (data) {
+            topmobi.native.common.showMsg("执行成功了！" + JSON.stringify(data));
+        },
+        fail: function (data) {
+            topmobi.native.common.showMsg("执行失败了！" + JSON.stringify(data));
+        }
+    };
+    topmobi.native.common.getDeviceInfo(obj);
+
+</script>
+
+</html>

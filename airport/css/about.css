@@ -1,0 +1,94 @@
+a{ text-decoration:none; outline: none;}
+.footer{font-size: 10px;margin-bottom:10px;text-align: center;color:#999}
+.company{margin-bottom:5px;}
+.copyright{margin:0 5%;}
+.up_part{
+    width: 100%;
+    min-height: 100%;
+}
+.div_two_icon{
+    width: 100%;
+    text-align: center;
+    padding: 20% 0;
+}
+.icon_logo_tc{
+    width: 100px;
+    height: 100px;
+}
+#tc_version{
+    margin: 10px 0;
+}
+.div_contact_container{
+    border-radius: 2px;
+    width: 90%;
+    margin:0 5%;
+    margin-top: 15px;
+}
+.div_contact{
+    display: block;
+    background-color: #fffefe;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 2px;
+    padding: 5px 0;
+    font-size: 15px;
+}
+.div_contact:first-child{
+    margin-bottom: 10px;
+}
+.item_right{
+    float: right;
+    display: inline-block;
+    margin-right: 8px;
+}
+.item_left{
+    display: inline-block;
+    margin-left: 10px;
+}
+.img_contact{
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+}
+.img_arrow_right{
+    vertical-align: middle;
+    height: 20px;
+}
+.contact_span{
+    vertical-align: middle;
+    margin-left: 10px;
+    color: #999;
+}
+.number_span{
+    vertical-align: middle;
+    margin-right: 10px;
+    color: #333;
+}
+.div_contact:nth-of-type(2){
+    border-top: #F0EFF5 solid 2px;
+    overflow: hidden;
+}
+.download_icon_group{
+    width: 100%;
+    margin: 20px 0;
+}
+.download_icon_group>a{
+    -webkit-tap-highlight-color:rgba(255,0,0,0);
+    width: 50%;
+    height: 60px;
+    display: inline-block;
+    text-align: center;
+    padding: 2px 5px;
+    box-sizing: border-box;
+}
+.icon_download{
+    max-width: 100%;
+    vertical-align: middle;
+}
+.apple_download{
+    /*margin-right: 8px;*/
+}
+.android_download{
+    /*margin-left: 8px;*/
+}
