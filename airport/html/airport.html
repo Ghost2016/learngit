@@ -435,8 +435,9 @@
 </body>
 <script>
     $(function () {
-        var aLi = $(".tab_menu ul li");
-        var addTags = false;
+        var aLi = $(".tab_menu ul li"), addTags = false,
+            //防抖
+            isRequesting = false;
         aLi.click(function () {
             $(this).addClass('selected').siblings().removeClass('selected');
             var index = $(this).index();
@@ -451,46 +452,50 @@
             }
         });
         $('#refresh').on('click', function () {
-            requestForDetail();
-        })
+            if (!isRequesting) {
+                requestForDetail();
+            }
+        });
         var time1 = $('#in .actual_time'), i = 0;
         for (i = 0; i < time1.length; i++) {
             addTag(time1[i], 'in');
         }
         requestForDetail();
-    });
-    //对返回数据进行转换
-    function parseIfNeeded(arg) {
-        if (arguments) {
-            var localArgument = arguments[0];
-            if (arguments[0]) {
-                if (typeof localArgument == "string" && (localArgument.indexOf("[") > -1 && localArgument.indexOf("]") > -1 || localArgument.indexOf("{") > -1 && localArgument.indexOf("}") > -1)) {
-                    try {
-                        localArgument = JSON.parse(arguments[0]);
-                    } catch (e) {
-                        return localArgument;
+
+
+        //对返回数据进行转换
+        function parseIfNeeded(arg) {
+            if (arguments) {
+                var localArgument = arguments[0];
+                if (arguments[0]) {
+                    if (typeof localArgument == "string" && (localArgument.indexOf("[") > -1 && localArgument.indexOf("]") > -1 || localArgument.indexOf("{") > -1 && localArgument.indexOf("}") > -1)) {
+                        try {
+                            localArgument = JSON.parse(arguments[0]);
+                        } catch (e) {
+                            return localArgument;
+                        }
                     }
                 }
+                return localArgument;
             }
-            return localArgument;
         }
-    }
-    //再次发起请求
-    function requestForDetail() {
-        var url = 'http://218.89.178.185:8081/flightinfo/flightinfo-all/',
-            method = 'get',
-            succeed = function (result) {
-                addDetail(parseIfNeeded(result.json))
-            },
-            params = {},
-            failed = function (result) {
+        //再次发起请求
+        function requestForDetail() {
+            var url = 'http://218.89.178.185:8081/flightinfo/flightinfo-all/',
+                method = 'get',
+                succeed = function (result) {
+                    isRequesting=!isRequesting;
+                    addDetail(parseIfNeeded(result.json))
+                },
+                params = {},
+                failed = function (result) {
 
-            };
-        requestData(url, method, succeed, params, failed);
-    }
-    //添加数据
-    function addDetail(data) {
-        $('#in>table').html('<tr style="height: 65px;">\
+                };
+            requestData(url, method, succeed, params, failed);
+        }
+        //添加数据
+        function addDetail(data) {
+            $('#in>table').html('<tr style="height: 65px;">\
                             <th>航班</th>\
                             <th>始发</th>\
                             <th>计划到达</th>\
@@ -498,7 +503,7 @@
                             <th>航站楼</th>\
                             <th>状态</th>\
                         </tr>');
-        $('#out>table').html('<tr style="height: 65px;">\
+            $('#out>table').html('<tr style="height: 65px;">\
                             <th>航班</th>\
                             <th>始发</th>\
                             <th>计划到达</th>\
@@ -506,24 +511,24 @@
                             <th>航站楼</th>\
                             <th>状态</th>\
                         </tr>');
-        // data = testJSON.json;
-        _html = '';
-        data.forEach(function (air) {
-            switch (air.company) {
-                case "乌鲁木齐航空":
-                    air.backimg = "url(\'../images/a.png\')";
-                    break;
-                case "云南祥鹏航空":
-                    air.backimg = "url(\'../images/b.png\')";
-                    break;
-                case "山东航空":
-                    air.backimg = "url(\'../images/c.png\')";
-                    break;
-                default:
-                    air.backimg = "url(\'../images/d.png\')";
-                    break;
-            }
-            var _html = '<tr class="plane_detail">\
+            // data = testJSON.json;
+            _html = '';
+            data.forEach(function (air) {
+                switch (air.company) {
+                    case "乌鲁木齐航空":
+                        air.backimg = "url(\'../images/a.png\')";
+                        break;
+                    case "云南祥鹏航空":
+                        air.backimg = "url(\'../images/b.png\')";
+                        break;
+                    case "山东航空":
+                        air.backimg = "url(\'../images/c.png\')";
+                        break;
+                    default:
+                        air.backimg = "url(\'../images/d.png\')";
+                        break;
+                }
+                var _html = '<tr class="plane_detail">\
                             <td class="plane_num"><a style="background-image: '+ air.backimg + '"><span>' + air.airplanenumber + '</span></a></td>\
                             <td>'+ ((air.destination === "绵阳") ? air.departure : air.destination) + ' </td>\
                             <td> '+ formatDate(air.preparetotime) + '</td>\
@@ -532,29 +537,32 @@
                             <td class="status_normal"><span>'+ air.status + '</span></td>\
                             <td class="plane_enter"><a><span></span></a></td>\
                         </tr>';
-            function formatDate(number) {
-                if (!number) {
-                    return '---'
+                function formatDate(number) {
+                    if (!number) {
+                        return '---'
+                    }
+                    var temp = number.split('');
+                    temp.splice(2, 0, ':');
+                    return temp.join('');
                 }
-                var temp = number.split('');
-                temp.splice(2, 0, ':');
-                return temp.join('');
-            }
-            if (air.destination === '绵阳') {
-                $('#in>table').append(_html);
-            } else {
-                $('#out>table').append(_html);
-            }
-        }, this);
-    }
-    //添加预计到达的标签
-    function addTag(dom, container) {
-        var $dom, hpos, vpos;
-        $dom = $(dom);
-        hpos = $dom.offset().left + ($dom.offset().width) / 2 + 10;
-        vpos = $dom.offset().top - 20;
-        $('#' + container).append('<div class="time-flag" style="left:' + hpos + 'px;top:' + vpos + 'px">预计</div>')
-    }
+                if (air.destination === '绵阳') {
+                    $('#in>table').append(_html);
+                } else {
+                    $('#out>table').append(_html);
+                }
+            }, this);
+        }
+        //添加预计到达的标签
+        function addTag(dom, container) {
+            var $dom, hpos, vpos;
+            $dom = $(dom);
+            hpos = $dom.offset().left + ($dom.offset().width) / 2 + 10;
+            vpos = $dom.offset().top - 20;
+            $('#' + container).append('<div class="time-flag" style="left:' + hpos + 'px;top:' + vpos + 'px">预计</div>')
+        }
+
+
+    });
 
 </script>
 
