@@ -122,7 +122,8 @@
         .plane_status {}
 
         .plane_enter>a {
-            background-image: url('../images/about-into.png');
+            /* background-image: url('../images/about-into.png'); */
+            background-image: url('about-into.png');
             background-size: contain;
             background-origin: content-box;
             background-repeat: no-repeat;
@@ -173,7 +174,8 @@
         #refresh {
             width: 100%;
             height: 100%;
-            background-image: url('../images/update_bar_icon.png');
+            /* background-image: url('../images/update_bar_icon.png'); */
+            background-image: url('update_bar_icon.png');
 
             background-position: center;
             background-repeat: no-repeat;
@@ -189,7 +191,8 @@
 <body>
     <header style="background: #3eb2dc;">
         <div>
-            <a id="back" title="返回" style="background-image: url('../images/back-white.png')"></a>
+                <a id="back" title="返回" style="background-image: url('back-white.png')"></a>
+                <!-- <a id="back" title="返回" style="background-image: url('../images/back-white.png')"></a> -->
         </div>
         <div style="font-size: 24px">航班信息</div>
         <div>
@@ -489,7 +492,7 @@
                 },
                 params = {},
                 failed = function (result) {
-
+                    isRequesting=!isRequesting;
                 };
             requestData(url, method, succeed, params, failed);
         }
@@ -514,18 +517,32 @@
             // data = testJSON.json;
             _html = '';
             data.forEach(function (air) {
+                // switch (air.company) {
+                //     case "乌鲁木齐航空":
+                //         air.backimg = "url(\'../images/a.png\')";
+                //         break;
+                //     case "云南祥鹏航空":
+                //         air.backimg = "url(\'../images/b.png\')";
+                //         break;
+                //     case "山东航空":
+                //         air.backimg = "url(\'../images/c.png\')";
+                //         break;
+                //     default:
+                //         air.backimg = "url(\'../images/d.png\')";
+                //         break;
+                // }
                 switch (air.company) {
                     case "乌鲁木齐航空":
-                        air.backimg = "url(\'../images/a.png\')";
+                        air.backimg = "url(\'a.png\')";
                         break;
                     case "云南祥鹏航空":
-                        air.backimg = "url(\'../images/b.png\')";
+                        air.backimg = "url(\'b.png\')";
                         break;
                     case "山东航空":
-                        air.backimg = "url(\'../images/c.png\')";
+                        air.backimg = "url(\'c.png\')";
                         break;
                     default:
-                        air.backimg = "url(\'../images/d.png\')";
+                        air.backimg = "url(\'d.png\')";
                         break;
                 }
                 var _html = '<tr class="plane_detail">\
